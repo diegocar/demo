@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static io.restassured.RestAssured.when;
 
@@ -49,5 +49,75 @@ public class DemoApplicationTests {
 				then().
 				statusCode(200).
 				body("origin", notNullValue());
+	}
+
+	@Test()
+	@DisplayName("get with query parameters")
+	public void testGetQueryParameters() {
+		given()
+				.queryParam("myInitials", "DC").
+		when().
+				get("/get").
+				then().
+				statusCode(200).
+				body("args.myInitials", equalTo("DC"));
+	}
+
+	@Test()
+	@DisplayName("Head test")
+	public void testHead() {
+		when().
+				head("/get").
+				then().
+				statusCode(200).
+				assertThat().header("Content-Type", "application/json");
+	}
+
+	@Test()
+	@DisplayName("Patch test")
+	public void testPatch() {
+		String requestBody = "{\n" +
+				"  \"Color\": \"Black\" \n}";
+		given().
+				header("Content-type", "application/json").
+				and().
+				body(requestBody).
+		when().
+				patch("/patch").
+				then().
+				statusCode(200).
+				body("json.Color", equalTo("Black"));
+	}
+
+	@Test()
+	@DisplayName("Put test")
+	public void testPut() {
+		String requestBody = "{\n" +
+				"  \"Color\": \"White\" \n}";
+		given().
+				header("Content-type", "application/json").
+				and().
+				body(requestBody).
+				when().
+				put("/put").
+				then().
+				statusCode(200).
+				body("json.Color", equalTo("White"));
+	}
+
+	@Test()
+	@DisplayName("Delete test")
+	public void testDelete() {
+		String requestBody = "{\n" +
+				"  \"Color\": \"Red\" \n}";
+		given().
+				header("Content-type", "application/json").
+				and().
+				body(requestBody).
+				when().
+				delete("/delete").
+				then().
+				statusCode(200).
+				body("json.Color", equalTo("Red"));
 	}
 }
