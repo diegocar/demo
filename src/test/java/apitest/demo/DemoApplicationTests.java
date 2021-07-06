@@ -120,4 +120,16 @@ public class DemoApplicationTests {
 				statusCode(200).
 				body("json.Color", equalTo("Red"));
 	}
+
+	@Test()
+	@DisplayName("verify Github login")
+	public void testGetGithubLogIn() {
+		given().auth()
+				.oauth2(System.getenv("ACCESS_TOKEN")).
+		when().
+				get("https://api.github.com/repos/diegocar/demo").
+				then().
+				assertThat().
+				body("permissions", notNullValue());
+	}
 }
