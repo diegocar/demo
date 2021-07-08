@@ -56,7 +56,7 @@ public class DemoApplicationTests {
 	public void testGetQueryParameters() {
 		given()
 				.queryParam("myInitials", "DC").
-		when().
+				when().
 				get("/get").
 				then().
 				statusCode(200).
@@ -82,7 +82,7 @@ public class DemoApplicationTests {
 				header("Content-type", "application/json").
 				and().
 				body(requestBody).
-		when().
+				when().
 				patch("/patch").
 				then().
 				statusCode(200).
@@ -126,7 +126,7 @@ public class DemoApplicationTests {
 	public void testGetGithubLogIn() {
 		given().auth()
 				.oauth2(System.getenv("ACCESS_TOKEN")).
-		when().
+				when().
 				get("https://api.github.com/repos/diegocar/demo").
 				then().
 				assertThat().
