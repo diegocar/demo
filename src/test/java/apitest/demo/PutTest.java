@@ -11,10 +11,6 @@ import static org.hamcrest.Matchers.*;
 
 @TestInstance(Lifecycle.PER_CLASS)
 public class PutTest {
-    public static Response followQuery;
-    public static Response repositories;
-    public static Response repositoryFiles;
-
 
     @Test()
     @DisplayName("Verify Github status code and empty body")
