@@ -4,6 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
+
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.core.annotation.Order;
@@ -66,6 +67,8 @@ public class IssueTest {
         String userName= user.getBody().path("login");
         String repoName= repositories.getBody().path("find { it.name == 'demo' }.name");
 
+//        JSONObject issue = new JSONObject();
+//        issue.append("title","Issue test");
         Map<String,String> issue = new HashMap<String,String>();
         issue.put("title", "Issue test");
 
